@@ -1,0 +1,103 @@
+/*
+Primary #344269
+Secondary #22B4B2
+Accents #683870, #AD3445, and #F9B14D
+*/
+
+* {
+	box-sizing : border-box;
+}
+
+body {
+	margin : 0px;
+	background-color : #000;
+}
+
+div {
+	position : relative;
+	height : 100%;
+	width : 100%;
+	overflow : hidden;
+	padding : 16px;
+}
+
+/*TODO:
+divs that are part of the layout should have padding, divs that are containers for absolutely positioned elements that slide about should have 0 padding
+Separate classes for layout and abs container divs is probably the way to go
+*/
+
+* {cursor: none;}
+
+#sign {
+	font-family : "Century Gothic", sans-serif;
+	position : absolute;
+	background-color : #fff;
+	
+	width : 100%;
+	height : 100%;
+}
+#sign.MASSAVE {
+	top: 30px;
+	width : 1180px;
+	height : 664px;
+	font-size : 21px;
+}
+#sign.MOB {
+	top: 75px;
+	left: 133px;
+	width : 1012px;
+	height : 570px;
+	font-size : 18px;
+}
+
+#inner {
+	border-style : solid;
+	border-color : #344269;
+}
+
+#schedule {
+	padding : 0px;
+	background-color : #344269;
+	color : #fff;
+	/*font-size: 1.25vw;*/
+}
+
+div.slide {
+	width : 100%;
+	height : 100%;
+	position: absolute;
+	padding: 0px;
+}
+
+div.slide table {
+	width : 100%;
+	position: absolute;
+	padding: 8px 0px;
+}
+div.slide td {
+	padding : 4px 22px;
+	min-width : 150px;
+}
+div.slide td:nth-child(4) {
+	min-width : 100px;
+}
+
+
+div.slide div.fitimg {
+	max-width : 100%;
+	max-height : 100%;
+	background-repeat:no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+TODO list
+
+== SERVER ==
+
++Accept action=update queries to modify existing reservations
+LT+PPT to PNG converter?
+
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT); // <-- filter your data first (see [Data Filtering](#data_filtering)), especially important for INSERT, UPDATE, etc.
+
+
+== PLAYER ==
+	- If only one slide is present, don't keep transitioning it
+	- Change refresh pattern to use a single list of slides and only refresh at the end of the list AND after a refresh interval, to avoid a query storm when no data is available.
++Redesign overall look to feature secondary area for weather, crawl, etc.
+	-	Weather fetcher
+	-	Look into possible bug occurring when no content.php returns empty.
+
+
+== MANAGEMENT CONSOLE ==
++Modal scheduling widget
++Modify existing durations
+Full UI redesign from the ground up
+Theme out the JQueryUI
++Admin panel
+Upload error output / Upload over AJAX
+Apply class to appointments in the past or future for styling
+more info on content (and durations)
+Reset notice position on open
+	
+	
+==DONE==
++Advanced PRIVS table
+Ownership of content
+	- Need privileges to delete other people's content
+	- "Show all content" "Show just my content" toggle
+Ownership of durations
+	- Need privileges to edit other people's durations
+
++Unauthenticated unified JSON query that returns astra schedule and slides at once
+
+Rewrite player to parse json into a slide array in advance, then pass that to the display-and-schedule function
