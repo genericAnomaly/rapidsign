@@ -1,0 +1,323 @@
+* {
+	font-family : "Century Gothic", "Verdana", sans-serif;
+	box-sizing : border-box;
+}
+
+body {
+	background-color: #39C;
+	background-image: url('bg.jpg');
+	background-attachment: fixed;
+	background-position: center center;
+	margin : 0px;
+	min-width : 1024px;
+}
+
+a {
+	color: #39C;
+}
+
+a:hover {
+	color: #6CE;
+}
+
+select, input {
+	font-size		: large;
+	border			: 1px;
+	border-style	: solid;
+	border-color	: #ccc;
+	text-align		: center;
+	vertical-align	: middle;
+	width			: calc(50% - 0px);
+	font-weight		: bold;
+	/*border-radius : 24px;*/
+}
+
+select:hover, input:hover {
+	border-color	: #39C;
+}
+
+input[type=submit] {
+	width : 200px;
+	height : 40px;
+	margin : 0px auto;
+	background-color : #39C;
+	color : #fff;
+}
+
+input[type=submit]:hover {
+	background-color : #6CE;
+}
+
+label {
+	font-size : large;
+	font-weight : bold;
+}
+
+
+
+
+h1, h2, h3 {
+	margin : 0px;
+}
+
+.center {
+	margin 		: 0px auto;
+	text-align	: center;
+}
+
+.error {
+	color : #F00;
+	font-weight : bold;
+	font-size : x-large;
+	text-align	: center;
+}
+
+
+
+
+
+
+
+/* Scrolling content pane */
+div.scroll_pane {
+	overflow : auto;
+}
+
+div.scroll_pane  .scroll_content {
+	width : 100%; /*.scroll_pane is specifically for vertical scrolling*/
+}
+
+/*All scrollable tables follow the same rules*/
+div.scroll_pane  table.scroll_content {
+	width : 100%;
+	border-collapse : collapse;
+}
+div.scroll_pane  table.scroll_content tr {
+	border-style : solid;
+	border-width : 1px;
+	border-color : #ddd;
+}
+div.scroll_pane  table.scroll_content tr:nth-child(odd) {
+	background-color : #eee; /*#ddd;*/
+}
+div.scroll_pane  table.scroll_content tr:nth-child(even) {
+	background-color : #eee;
+}
+div.scroll_pane  table.scroll_content td {
+	padding : 1px 8px;
+}
+
+
+div.scroll_pane  table.scroll_content td:nth-child(2) button {
+	float: right;
+	font-size : 0.8em;
+}
+
+div.scroll_pane  table.scroll_content td:nth-child(3) {
+	width : 106px;
+}
+
+div.scroll_pane  table.scroll_content img {
+	max-height : 50px;
+	max-width : 90px;
+	display: block;
+	margin-right : 0px;
+	margin-left : auto;
+}
+
+
+/*#pane_library elements*/
+
+#library_content {
+	height : 50%;
+	width : 100%;
+	margin : auto;
+	height : calc(100% - 256px);
+}
+
+
+
+
+/*#pane_schedule_view elements*/
+#pane_schedule_view select {
+	/*TODO: make this inline with the h2, that'll look nice*/
+	float : right;
+}
+
+#schedule_content {
+	/*height : 50%;*/
+	height : calc(100% - 256px);
+	width : 100%;
+	margin : auto;
+}
+
+
+#form_scheduler, #library_upload {
+	background-color : #eee;
+	height : 220px;
+	padding : 8px;
+}
+
+#form_scheduler #scheduler_preview_container {
+	width : 200px;
+	height : 125px;
+	margin : 16px;
+	background-color : #999;
+	position: relative;
+}
+#scheduler_preview_content {
+	max-height : 125px;
+	max-width : 200px;
+	margin : auto;
+	
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+div.thumbnail_reserved {
+	width : 232px;
+	float : left;
+}
+div.thumbnail_remainder {
+	width: calc(100% - 232px);
+	float : left;
+}
+
+
+
+
+/*
+DESIGN PATTERN TIME so I don't psych myself out over UI stuff again.
+BASIC IDEA: every major UI chunk resides inside a widget pane and sizes itself up to 100%
+If stuff needs to be moved about or needs more space, alter the widget pane CSS.
+PANES SHOULD BE THE ONLY CONTAINERS with static sizing if possible
+*/
+
+[id^=pane_] {
+	padding				: 24px;
+	background-color	: #FFF;
+	/*border-radius		: 12px;
+	border-style		: dashed;
+	border-width		: 5px;*/
+	border-width		: 1px;
+	border-style		: solid;
+	border-color		: #39C;
+	
+}
+
+#pane_main {
+	width : 100%;
+	min-width : 512px;
+	position : absolute;
+	height : calc(100% - 40px);
+	min-height : 520px;
+}
+
+#pane_library {
+	width : 50%;
+	min-width : 512px;
+	/*float : left;*/
+	
+	position : absolute;
+	height : calc(100% - 40px);
+	min-height : 520px;
+}
+
+#pane_schedule_view {
+	width : 50%;
+	min-width : 512px;
+	float : right;
+	
+	position : absolute;
+	right : 0px;
+	height : calc(100% - 40px);
+	min-height : 520px;
+}
+
+#pane_schedule_insert {
+
+}
+
+#pane_login {
+	width : 600px;
+	min-height : 300px;
+	margin : 100px auto;
+}
+#pane_login input {
+	width : 100%;
+	text-align : center;
+	margin : auto;
+}
+#pane_login input[type=submit] {
+	width : 200px;
+	height : 40px;
+	margin : 0px auto;
+	background-color : #39C;
+	color : #fff;
+}
+
+#pane_topbar {
+	width : 100%;
+	height : 40px;
+	padding : 12px;
+	text-align : right;
+}
+
+
+
+
+
+
+
+/*https://css-tricks.com/dont-overthink-it-grids/*/
+
+
+[class*='col-'] {
+  float: left;
+}
+
+.col-2-3 {
+  width: 66.66%;
+}
+.col-1-3 {
+  width: 33.33%;
+}
+
+.col-1-4 {
+  width: 25%;
+}
+.col-3-4 {
+  width: 75%;
+}
+.col-1-2 {
+  width: 50%;
+}
+
+.grid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+[class*='col-'] {
+  padding-right: 12px;
+}
+[class*='col-']:last-of-type {
+  padding-right: 0;
+}
+
+
+
+
+
+.metadata {
+	font-size : small;
+	font-style : italic;
+}
+
+
+
+
