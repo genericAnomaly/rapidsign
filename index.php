@@ -153,7 +153,7 @@ function post_uploadHandler($auth) {
 	//Determine where to save the upload
 	$timestamp = new DateTime('now');
 	$timestamp = $timestamp->format('Y-m-d-Gis-');
-	$target = APP_IMAGE_DIR . $timestamp . basename($upload['name']);
+	$target = APP_IMAGE_DIR . $timestamp . basename(  sanitise_string($upload['name'])  );
 	
 	//Verify that the file has an image extension
 	$type = strtolower( pathinfo($target,PATHINFO_EXTENSION) );
