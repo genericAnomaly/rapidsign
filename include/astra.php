@@ -59,11 +59,10 @@ function astra_fetchSchedule($ah, $site) {	//$site MUST be a guid
 	$query = array(	'action'	=> 'get',
 					'view'		=> 'json',
 					'columns'	=> 'ActivityName|0,ParentActivityName|1,Description|2,StartDate|3,EndDate|4,StartMinute|5,EndMinute|6,ActivityTypeCode|7,CampusName|8,BuildingCode|9,RoomNumber|10,RoomName|11,SectionMeetInstanceByActivityId.SectionMeeting.PrimaryInstructorId|12,SectionMeetInstanceByActivityId.IsCancellation|13',
-					'filename'	=> '',
 					'fields'	=> 'ActivityName,ParentActivityName,Description,StartDate,EndDate,StartMinute,EndMinute,ActivityTypeCode,CampusName,BuildingCode,RoomNumber,RoomName,SectionMeetInstanceByActivityId.SectionMeeting.PrimaryInstructorId,SectionMeetInstanceByActivityId.IsCancellation',
 					'sortOrder'	=> 'StartMinute',
 					'filter'	=> $filter,
-					'forExport'	=> 'true');
+					);
 	$query = http_build_query($query);
 	curl_setopt($ch, CURLOPT_URL, ASTRA_URL.'~api/calendar/calendarList?'.$query);
 	curl_setopt($ch, CURLOPT_POST, false);
@@ -77,6 +76,13 @@ function astra_fetchSchedule($ah, $site) {	//$site MUST be a guid
 	$toJSON = array();
 	foreach ($items['data'] as $item) {
 		$entry = array();
+		$entry['date'] = $item[3];
+		$entry['start'] = minutesToHumanTime($item[5]);
+		$entry['end'] = minutesToHumanTime($item[6]);
+		$entry['minute_start'] = $item[5];
+		$entry['minute_end'] = $item[6];
+		$entry['room'] = $item[10];
+
 		if ($item[7] == 1) { //Classes
 			curl_setopt($ch, CURLOPT_URL, ASTRA_URL.'~api/entity/instructor/byid/'.$item[12]);
 			$instructor = curl_exec($ch);
@@ -85,22 +91,13 @@ function astra_fetchSchedule($ah, $site) {	//$site MUST be a guid
 			$name = $name[0];
 			$code = explode('/', $item[0]);
 			$code = $code[0];
-
 			$entry['code'] = $code;
 			$entry['name'] = $name;
-			$entry['date'] = $item[3];
-			$entry['start'] = $item[5];
-			$entry['end'] = $item[6];
-			$entry['room'] = $item[10];
 			$entry['instructor'] = $instructor['LastName'];
 		} else { //Events
 
 			$entry['code'] = 'EVENT';
 			$entry['name'] = $item[0];
-			$entry['date'] = $item[3];
-			$entry['start'] = $item[5];
-			$entry['end'] = $item[6];
-			$entry['room'] = $item[10];
 			$entry['instructor'] = '';
 		}
 		$toJSON[] = $entry;
@@ -120,6 +117,12 @@ function astra_fetchBuildings($ah) {
 }
 
 
+//Convenience function
+function minutesToHumanTime($minutes) {
+	$dt = new DateTime();
+	$dt->setTime(0, $minutes, 0);
+	return $dt->format('h:i A');
+}
 
 
 
