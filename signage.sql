@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2015 at 04:58 PM
+-- Generation Time: Mar 02, 2016 at 11:00 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   `content_name` text NOT NULL,
   `content_src` text NOT NULL,
   PRIMARY KEY (`content_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `durations` (
   `date_start` date NOT NULL,
   `date_end` date NOT NULL,
   PRIMARY KEY (`duration_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8822 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8828 ;
 
 -- --------------------------------------------------------
 
@@ -124,6 +124,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `ldap_upn` (`ldap_upn`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `weather_cache`
+--
+
+CREATE TABLE IF NOT EXISTS `weather_cache` (
+  `lat` float NOT NULL,
+  `lon` float NOT NULL,
+  `fresh` datetime NOT NULL,
+  `json` text NOT NULL,
+  PRIMARY KEY (`lat`,`lon`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables
