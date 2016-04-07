@@ -85,6 +85,10 @@ class Weather {
 		return $forecast;
 	}
 	
+	public function getForecastJSON() {
+		//For the sake of removing ambiguity
+		return $this->loadForecast();
+	}
 
 	
 	

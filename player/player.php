@@ -51,6 +51,9 @@
 	var player = <?php echo $json ?>;
 	var refresh = false;
 	
+	var cached = false;
+	var refreshed = false;
+	
 	//Page transition settings
 	var pageDelay = 10;			//Seconds between pages
 	var transitionEffect = 'slide';
@@ -60,6 +63,62 @@
 	$(function() {
 		requestContent();
 	});
+	
+	
+	
+	
+	
+	
+	
+	//weather update new content
+	
+	function rebuildSlidesOnRegion() {
+		//TODO
+	}
+	
+	function displaySlidesOnRegion(slideArray, slideIndex, regionName) {
+		//If we just finished a full cycle,
+		if (slideIndex >= slideArray.length) {
+			//Normally, just loop back to 0
+			slideIndex -= slideArray.length;
+			//If the cache has updated since we last rebuilt this region's slides, rebuild from the cache
+			//TODO: do the check
+		}
+		
+		
+		//Tidy up the region and remove old slides (this is for slides we told to hide on previous runs of this function but couldn't delete because they were in the process of animated-hiding)
+		$('#'+regionName).find(':hidden').remove();
+		
+		//Grab the old slide to be hidden
+		var slide_old = $('#'+regionName+' .slide');
+		
+		//Slot the new slide in and set it hidden
+		var slide_new = $(slideArray[slideIndex]);
+		$('#'+regionName).append(slide_new);
+		slide_new.hide();
+		
+		//FX show the new slide and hide the old one
+		slide_old.hide( transitionEffect, { direction: "left", easing: 'easeInOutQuint' }, 1500);
+		slide_new.show( transitionEffect, { direction: "right", easing: 'easeInOutQuint' }, 1500);
+		
+		//Trigger the next slide to display after the pageDelay has elapsed.
+		setTimeout(displaySlidesOnRegion, pageDelay*1000, slideArray, slideIndex+1, regionName);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//End of weather update new content
 	
 	
 	
@@ -73,10 +132,18 @@
 		} catch (e) {
 			errorHandler(e);
 		}
-		//console.log(data);
+		console.log(data);
+		
+		cached = data;
+		for (key in data) {
+			//console.log(key);
+			
+		}
+		
+		
+		data = data['primary'];
 		
 		var slides = new Array();
-		
 		
 		while (content = data.shift()) {
 			if (content['type'] == 'schedule') {
@@ -88,7 +155,10 @@
 		}
 		
 		console.log(slides);
-		displaySlides(slides, 0);
+		
+		//displaySlides(slides, 0);
+		displaySlidesOnRegion(slides, 0, 'primary');
+		displaySlidesOnRegion(slides, 0, 'sidebar');
 	}
 	
 	
@@ -192,6 +262,23 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	</script>
 	
 </head>
@@ -200,7 +287,7 @@
 	<div id="sign" style="<?php echo $player['player_css']; ?>">
 		<!--TODO: Move all the structure and CSS into Templates stored in the DB-->
 		<div id="inner">
-			<div id="schedule" class="region row-1"></div>
+			<div id="primary" class="region row-1"></div>
 			<div id="sidebar" class="region row-1"></div>
 			<div class="region row-spacer"></div>
 			<div id="line" class="region row-1point5"></div>

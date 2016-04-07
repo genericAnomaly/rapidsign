@@ -55,7 +55,7 @@ Separate classes for layout and abs container divs is probably the way to go
 	border-color : #344269;
 }
 
-#schedule {
+#primary {
 	padding : 0px;
 	background-color : #344269;
 	color : #fff;
