@@ -400,8 +400,6 @@ function db_updateForecast($dbh, $what) {
 		return;
 	}
 	
-	echo 'ATTEMPTING TO db_updateForecast()';
-	
 	$stmt = $dbh->prepare("
 		UPDATE `weather_cache`
 		SET

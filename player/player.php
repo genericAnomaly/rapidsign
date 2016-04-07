@@ -198,9 +198,14 @@
 
 <body>
 	<div id="sign" style="<?php echo $player['player_css']; ?>">
+		<!--TODO: Move all the structure and CSS into Templates stored in the DB-->
 		<div id="inner">
-			<div id="schedule">
-			</div>
+			<div id="schedule" class="region row-1"></div>
+			<div id="sidebar" class="region row-1"></div>
+			<div class="region row-spacer"></div>
+			<div id="line" class="region row-1point5"></div>
+			<div class="region row-spacer"></div>
+			<div id="logo" class="region row-2"></div>
 		</div>
 	</div>
 </body>

@@ -59,8 +59,57 @@ Separate classes for layout and abs container divs is probably the way to go
 	padding : 0px;
 	background-color : #344269;
 	color : #fff;
-	/*font-size: 1.25vw;*/
+
+	
+	width: calc(71% - 8px);
+	margin-right: 8px;
+
 }
+
+#sidebar {
+	padding : 0px;
+	background-color : #888;
+	color : #fff;
+	
+	width: calc(29% - 8px);
+	margin-left: 8px;
+}
+
+#logo {
+	padding : 0px;
+	background-color : #444;
+	color : #fff;
+	
+	float: left;
+	width: calc(25% - 8px);
+}
+
+#line {
+	background-color : #344269;
+}
+
+
+div.region {
+	padding : 0px;
+	float: left;
+	
+}
+
+div.row-1 {
+	height:83.3%;
+}
+div.row-spacer{
+	height:2%;
+	width:100%;
+}
+div.row-1point5 {
+	height:0.2%;
+}
+div.row-2 {
+	height:12.5%;
+}
+
+
 
 div.slide {
 	width : 100%;
