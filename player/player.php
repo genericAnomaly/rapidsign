@@ -90,8 +90,6 @@
 		//Build the actual slides here
 		slideArray = new Array();
 		for (i in content) {
-			console.log('Generating slide in ' + regionName);
-			console.log(content[i]);
 			
 			switch(content[i]['type']) {
 				//Oh god why am I doing this I hate switch/case statements where are the braces it's like python or something
@@ -103,6 +101,8 @@
 					break;
 				case 'forecast':
 					//hell yeah it's THING DO TIME
+					console.log(content[i]);
+					slideArray = slideArray.concat( buildWeatherSlides(content[i]['content']) );
 			}
 			
 		}
@@ -113,7 +113,6 @@
 	}
 	
 	function displaySlidesOnRegion(slideArray, slideIndex, regionName) {
-		console.log('displaySlidesOnRegion called for ' + regionName);
 		//If we just finished a full cycle,
 		if (slideIndex >= slideArray.length) {
 			//Normally, just loop back to 0
@@ -164,6 +163,7 @@
 		}
 		
 		cachedContent = data;
+		console.log('Updated the cache.');
 		console.log(cachedContent);
 		
 		if (!regionsActivated) activateRegions();
@@ -196,14 +196,12 @@
 		var slides = new Array();
 		schedule = schedule.slice(0);
 		while (schedule.length > 0) {
-			console.log('scheduleToSlidesOnRegion is trying to make slides for a schedule. regionName is ' + regionName);
 			slides.push( buildScheduleSlidesOnRegion(schedule, regionName) );
 		}
 		return slides;
 	}
 	
 	function buildScheduleSlidesOnRegion(rows, regionName) {
-		console.log('Building schedule for region ' + regionName);
 		var slide_new = $('<div class="slide"></div>');
 		var table = $('<table></table>');
 		slide_new.append(table);
@@ -228,6 +226,48 @@
 		slide_new.remove();
 		return ret;
 	}
+	
+	
+	
+	
+	function buildWeatherSlides(weather) {
+		/*
+		Super quick notes on what we want and how weather.gov packages it their forecasts
+		['data']['iconLink'][i]			Icon image full url
+		['data']['text'][i]				Long text description of weather ("A chance of showers, mainly between 1pm and 4pm.  Mostly cloudy, with a high near 52. Southwest wind around 14 mph, with gusts as high as 30 mph.  Chance of precipitation is 30%.")
+		['data']['temperature'][i]		Temperature as an int
+		['data']['weather'][i]			Headline weather ("Chance Showers")
+		['time']['startPeriodName'][i]	Headline time ("This Afternoon")
+		['time']['tempLabel'][i]		High or Low for corresponding temperature
+		*/
+		var panels = new Array();
+		var length = weather['data']['weather'].length;
+		for (var i=0; i<length; i++) {
+			var panel = $('<div class="weather-panel"></div>');
+			panel.append( $('<div class="weather-header">'+weather['time']['startPeriodName'][i]+'</div>') );
+			//panel.append( $('<div class="weather-column-1"><img src="'+weather['data']['iconLink'][i]+'" alt="" /></div>') );
+			panel.append( $('<img class="weather-icon" src="'+weather['data']['iconLink'][i]+'" alt="" />') );
+			panel.append( $('<p class="weather-temp">'+weather['time']['tempLabel'][i]+' '+weather['data']['temperature'][i]+'F</p>') );
+			panel.append( $('<p class="weather-brief">'+weather['data']['weather'][i]+'</p>') );
+			panels.push(panel);
+		}
+		//return panels;
+		
+		var slides = new Array();
+		while (panels.length > 0) {
+			var slide = $('<div class="slide"></div>');
+			for (var i=0; i<3; i++) { //TODO: make this not hardcoded
+				if (panel = panels.shift()) slide.append(panel);
+			}
+			slides.push(slide);
+		}
+		return slides;
+		
+		
+	}
+	
+	
+	
 	
 	
 	
