@@ -87,7 +87,7 @@ $secondary[] = array('type' => 'forecast', 'content' => $forecast);
 
 //Wait up that's just one region
 $output['primary'] = $pack;
-$output['secondary'] = $secondary;
+$output['sidebar'] = $secondary;
 $pack = $output;
 
 header('content-type:text/plain');

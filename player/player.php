@@ -74,8 +74,7 @@
 	
 	
 	
-	//weather update new content
-	
+
 	function activateRegions() {
 		var regions = $('.active');
 		regions.each( function(index) { displaySlidesOnRegion( [], 0, $(this).attr('id') ) });
@@ -97,7 +96,6 @@
 			switch(content[i]['type']) {
 				//Oh god why am I doing this I hate switch/case statements where are the braces it's like python or something
 				case 'schedule':
-					console.log('buildSlidesOnRegion is trying to make slides for a schedule. regionName is ' + regionName);
 					slideArray = slideArray.concat( scheduleToSlidesOnRegion(content[i]['content'], regionName) );
 					break;
 				case 'image':
@@ -110,15 +108,6 @@
 		}
 		
 
-		/*
-		for (i in content) {
-			if (content['type'] == 'schedule') {
-				slides = slides.concat( scheduleToSlides(content['content']) );
-			}
-			if (content['type'] == 'image') {
-				slides.push( buildImgSlide(content['content']) );
-			}
-		}*/
 		
 		return slideArray;
 	}
@@ -191,125 +180,8 @@
 	
 	
 	
-	//End of weather update new content
-	
-	/*
-	
-	function requestContent() {
-		var data = player;
-		$.post('content.php', data, receiveContent);
-	}
-	function receiveContent(data) {
-		try {
-			data = $.parseJSON(data);
-		} catch (e) {
-			errorHandler(e);
-		}
-		console.log(data);
-		
-		cached = data;
-		for (key in data) {
-			//console.log(key);
-			
-		}
-		
-		
-		data = data['primary'];
-		
-		var slides = new Array();
-		
-		while (content = data.shift()) {
-			if (content['type'] == 'schedule') {
-				slides = slides.concat( scheduleToSlides(content['content']) );
-			}
-			if (content['type'] == 'image') {
-				slides.push( buildImgSlide(content['content']) );
-			}
-		}
-		
-		console.log(slides);
-		
-		//displaySlides(slides, 0);
-		displaySlidesOnRegion(slides, 0, 'primary');
-		displaySlidesOnRegion(slides, 0, 'sidebar');
-	}
-	
-	*/
-	
-	function displaySlides(slides, i) {
-		//End case
-		if (i >= slides.length) {
-			//If the timer is up, request new content, otherwise loop
-			
-			//displaySlides(slides, 0);
-			
-			requestContent();
-			
-			return;
-		}
-		
-		//clean up any hidden slides left over from the last run
-		$('#schedule').find(':hidden').remove();
-		
-		//Bookmark the old slide to be hidden
-		var slide_old = $('#schedule .slide');
-		
-		var slide_new = $(slides[i]);
-		$('#schedule').append(slide_new);
-		slide_new.hide();
-		
-		
-		slide_old.hide( transitionEffect, { direction: "left", easing: 'easeInOutQuint' }, 1500);
-		slide_new.show( transitionEffect, { direction: "right", easing: 'easeInOutQuint' }, 1500);
-		
-		
-		setTimeout(displaySlides, pageDelay*1000, slides, i+1);
-		//displaySlides(slides, i+1);
-	}
-	
-	
-	
-	
-	
-	
-	
-	function scheduleToSlides(schedule) {
-		var slides = new Array();
-		while (schedule.length > 0) {
-			slides.push( buildScheduleSlides(schedule) );
-		}
-		return slides;
-	}
-	
-	function buildScheduleSlides(rows) {
-		var slide_new = $('<div class="slide"></div>');
-		var table = $('<table></table>');
-		slide_new.append(table);
-		$('#schedule').append(slide_new);
-		//console.log(rows);
-		while (row = rows.shift()) {
-			var trow = $('<tr></tr>');
-			trow.append('<td>'+ row['code'] +'</td>');
-			trow.append('<td>'+ row['name'] +'</td>');
-			trow.append('<td>'+ row['instructor'] +'</td>');
-			trow.append('<td>'+ row['room'] +'</td>');
-			trow.append('<td>'+ row['start'] +'</td>');
-			table.append(trow);
-			if ( trow.position().top+trow.height() > $('#schedule').height() ) {
-				//Hide the tr, put the row back in rows, and break the loop.
-				trow.hide();
-				rows.unshift(row);
-				break;
-			}
-		}
-		//slide_new.detach();
-		//return slide_new;
-		//return slide_new.prop('outerHTML');
-		var ret = slide_new.prop('outerHTML');
-		slide_new.remove();
-		return ret;
-	}
-	
+
+
 	function buildImgSlide(content) {
 		var slide_new = $('<div class="slide"></div>');
 		var src = '../' + content;
@@ -319,9 +191,6 @@
 		//return slide_new;
 		return slide_new.prop('outerHTML');
 	}
-	
-	
-	
 	
 	function scheduleToSlidesOnRegion(schedule, regionName) {
 		var slides = new Array();
