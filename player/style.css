@@ -78,17 +78,32 @@ Separate classes for layout and abs container divs is probably the way to go
 
 #logo {
 	padding : 0px;
-	background-color : #444;
 	color : #fff;
 	
 	float: left;
-	width: calc(25% - 8px);
+	width: calc(23% - 8px);
+	margin-right: 8px;
+	
+	background-repeat:no-repeat;
+	background-size: contain;
+	background-position: left;
 }
 
 #line {
 	background-color : #344269;
 }
 
+
+#ticker {
+	width : calc(48% - 16px);
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+#clock {
+	width: calc(29% - 8px);
+	margin-left: 8px;
+}
 
 /*Weather widget*/
 
@@ -105,7 +120,6 @@ div.weather-header {
 img.weather-icon {
 	float: left;
 	padding: 7px;
-	
 }
 div.weather-panel p {
 	margin: 7px;
@@ -114,9 +128,31 @@ div.weather-panel p {
 p.weather-temp {
 	font-weight: bold;
 }
-p.weather-brief {
 
+
+
+/*Clock widget*/
+
+div.clock-time {
+	text-align : center;
+	font-size : 2em;
+	color : #344269;
+	padding : 0px;
 }
+div.clock-date {
+	text-align : center;
+	background-color : #344269;
+	color : #fff;
+	padding : 1px;
+	bottom : 0px;
+	font-size : 1.2em;
+}
+
+
+
+
+
+
 
 /*Template formatting (this will eventually come from the db)*/
 
@@ -152,11 +188,11 @@ div.slide {
 div.slide table {
 	width : 100%;
 	position: absolute;
-	padding: 8px 0px;
+	padding: 8px 4px;
 }
 div.slide td {
-	padding : 4px 22px;
-	min-width : 150px;
+	padding : 4px 12px;
+	min-width : 130px;
 }
 div.slide td:nth-child(4) {
 	min-width : 100px;

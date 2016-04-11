@@ -62,6 +62,10 @@
 	var transitionEffect = 'slide';
 	var refreshDelay = 60;		//Seconds between content refreshes;
 	
+	
+	//I know this is UNBELIEVABLY STUPID but it's probably faster to just drop this in the globals than declare it in a dedicated function way too often because I'm not jumping through hoops to only recheck the date when it updates.
+	var clock_monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	
 	//Initialise
 	$(function() {
 		requestContent();
@@ -79,6 +83,9 @@
 		var regions = $('.active');
 		regions.each( function(index) { displaySlidesOnRegion( [], 0, $(this).attr('id') ) });
 		regionsActivated = true;
+		
+		clockTickHandler('clock');
+		
 	}
 	
 	function buildSlidesOnRegion(regionName) {
@@ -249,6 +256,7 @@
 			panel.append( $('<img class="weather-icon" src="'+weather['data']['iconLink'][i]+'" alt="" />') );
 			panel.append( $('<p class="weather-temp">'+weather['time']['tempLabel'][i]+' '+weather['data']['temperature'][i]+'F</p>') );
 			panel.append( $('<p class="weather-brief">'+weather['data']['weather'][i]+'</p>') );
+			//panel.append( $('<p style="font-size: small;" class="weather-brief">'+weather['data']['text'][i]+'</p>') );
 			panels.push(panel);
 		}
 		//return panels;
@@ -283,7 +291,24 @@
 	
 	
 	
-	
+	function clockTickHandler (regionName) {
+		var now = new Date();
+		var h = now.getHours();
+		var g = ( (h+11) % 12 ) + 1;
+		var i = now.getMinutes();
+		if (i < 10) i = '0' + i;
+		var A = 'AM';
+		if (h >= 12) A = 'PM';
+		
+		var j = now.getDate();
+		var n = now.getMonth();
+		var F = clock_monthNames[n];
+		var Y = now.getFullYear();
+		
+		$('#'+regionName + ' .clock-time').html(g + ':' + i + ' ' + A);
+		$('#'+regionName + ' .clock-date').html(j + ' ' + F + ', ' + Y);
+		setTimeout(clockTickHandler, 1000);
+	}
 	
 	
 	
@@ -313,7 +338,11 @@
 			<div class="region row-spacer"></div>
 			<div id="logo" class="region row-2"></div>
 			<div id="ticker" class="region row-2"></div>
-			<div id="clock" class="region row-2"></div>
+			<div id="clock" class="region row-2">
+				<!--TODO: these divs should come down as active content-->
+				<div class="clock-time" data-format="g:i A"></div>
+				<div class="clock-date" data-format="j F, Y"></div>
+			</div>
 		</div>
 	</div>
 </body>
