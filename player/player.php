@@ -84,7 +84,7 @@
 		regions.each( function(index) { displaySlidesOnRegion( [], 0, $(this).attr('id') ) });
 		regionsActivated = true;
 		
-		clockTickHandler('clock');
+		clockTickHandler();
 		
 	}
 	
@@ -108,7 +108,6 @@
 					break;
 				case 'forecast':
 					//hell yeah it's THING DO TIME
-					console.log(content[i]);
 					slideArray = slideArray.concat( buildWeatherSlides(content[i]['content']) );
 			}
 			
@@ -170,8 +169,8 @@
 		}
 		
 		cachedContent = data;
-		console.log('Updated the cache.');
-		console.log(cachedContent);
+		//console.log('Updated the cache.');
+		//console.log(cachedContent);
 		
 		if (!regionsActivated) activateRegions();
 		
@@ -291,7 +290,7 @@
 	
 	
 	
-	function clockTickHandler (regionName) {
+	function clockTickHandler () {
 		var now = new Date();
 		var h = now.getHours();
 		var g = ( (h+11) % 12 ) + 1;
@@ -304,10 +303,13 @@
 		var n = now.getMonth();
 		var F = clock_monthNames[n];
 		var Y = now.getFullYear();
+		var s = now.getSeconds();
 		
-		$('#'+regionName + ' .clock-time').html(g + ':' + i + ' ' + A);
-		$('#'+regionName + ' .clock-date').html(j + ' ' + F + ', ' + Y);
-		setTimeout(clockTickHandler, 1000);
+		$('.clock-time').html(g + ':' + i + ' ' + A);
+		$('.clock-date').html(j + ' ' + F + ', ' + Y);
+		//TODO: this chunk failed at 1:02 AM then 12:59PM, figure out what did that and fix it. Event was still ticking, just failed to update for some reason
+		//console.log(now);
+		setTimeout(clockTickHandler, (61-s)*1000);
 	}
 	
 	

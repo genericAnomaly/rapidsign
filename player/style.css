@@ -84,6 +84,7 @@ Separate classes for layout and abs container divs is probably the way to go
 	width: calc(23% - 8px);
 	margin-right: 8px;
 	
+	background-image: url('../img/2016-04-11-211512-signage_logo.png');
 	background-repeat:no-repeat;
 	background-size: contain;
 	background-position: left;

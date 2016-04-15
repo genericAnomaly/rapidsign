@@ -65,11 +65,13 @@ foreach($slides as $slide) {
 
 //Weather junk!
 //TODO: associate lat/lon values with signs somehow. Really need a good model for this stuff to be more modular
-$lat = 42.3798;
-$lon = -71.1284;
+//OK SO the plan is to staple this on to the `players` table for now like the astra_guid to get it implemented by the end of the month, but implement content types and region targeting later
+$coords = json_decode($player['weather_coords'], true);
+//$lat = 42.3798;
+//$lon = -71.1284;
 //TODO: pass $dbh into Weather class?
 
-$w = new Weather($lat, $lon);
+$w = new Weather($coords['lat'], $coords['lon']);
 $forecast = $w->getForecastJSON();
 $forecast = json_decode($forecast, true);	//Just to be extra counterintuitive
 $secondary = array();
