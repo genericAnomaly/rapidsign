@@ -2,6 +2,7 @@
 
 require_once('../include/config.php');
 require_once('../include/db.php');
+require_once('../include/weather.class.php');
 
 /*
 $sites = astra_fetchBuildings(astra_createHandle());
@@ -58,6 +59,38 @@ foreach($slides as $slide) {
 	$row['content'] = $slide['content_src'];
 	$pack[] = $row;
 }
+
+
+
+
+//Weather junk!
+//TODO: associate lat/lon values with signs somehow. Really need a good model for this stuff to be more modular
+//OK SO the plan is to staple this on to the `players` table for now like the astra_guid to get it implemented by the end of the month, but implement content types and region targeting later
+$coords = json_decode($player['weather_coords'], true);
+//$lat = 42.3798;
+//$lon = -71.1284;
+//TODO: pass $dbh into Weather class?
+
+$w = new Weather($coords['lat'], $coords['lon']);
+$forecast = $w->getForecastJSON();
+$forecast = json_decode($forecast, true);	//Just to be extra counterintuitive
+$secondary = array();
+$secondary[] = array('type' => 'forecast', 'content' => $forecast);
+
+
+
+
+
+
+
+
+
+
+
+//Wait up that's just one region
+$output['primary'] = $pack;
+$output['sidebar'] = $secondary;
+$pack = $output;
 
 header('content-type:text/plain');
 //$json = json_encode($pack, JSON_PRETTY_PRINT);

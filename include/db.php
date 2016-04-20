@@ -347,4 +347,88 @@ function db_deleteContent($dbh, $where) {
 }
 
 
+
+
+function db_fetchForecast($dbh, $where) {
+	$stmt = $dbh->prepare("
+		SELECT *
+		FROM `weather_cache`
+		WHERE `lat` LIKE :lat
+		AND `lon` LIKE :lon
+		LIMIT 1;
+	");
+	
+	
+	$stmt->bindValue(':lat',	$where['lat']);
+	$stmt->bindValue(':lon',	$where['lon']);
+	
+	
+	if ( $stmt->execute() ) {
+		if ($row = $stmt->fetch( PDO::FETCH_ASSOC ) ) {
+			return $row;
+		} else {
+			return null;
+		}
+	}
+}
+
+function db_insertForecast($dbh, $what) {
+	$stmt = $dbh->prepare("
+		INSERT INTO `weather_cache`
+		(`lat`, `lon`, `fresh`, `json`)
+		VALUES
+		(:lat, :lon, :fresh, :json);
+	");
+	
+	$stmt->bindValue(':lat',			$what['lat']);
+	$stmt->bindValue(':lon',			$what['lon']);
+	$stmt->bindValue(':fresh',			$what['fresh']);
+	$stmt->bindValue(':json',			$what['json']);
+
+	
+	if ($stmt->execute()) {
+		$id = $dbh->lastInsertId();
+		return $id;
+	}
+	return -1;
+}
+
+function db_updateForecast($dbh, $what) {
+	$exists = db_fetchForecast($dbh, $what);
+	if ($exists == null) {
+		db_insertForecast($dbh, $what);
+		return;
+	}
+	
+	$stmt = $dbh->prepare("
+		UPDATE `weather_cache`
+		SET
+		`fresh` = :fresh,
+		`json` = :json
+		WHERE `lat` LIKE :lat
+		AND `lon` LIKE :lon;
+	");
+	
+	$stmt->bindValue(':lat',			$what['lat']);
+	$stmt->bindValue(':lon',			$what['lon']);
+	$stmt->bindValue(':fresh',			$what['fresh']);
+	$stmt->bindValue(':json',			$what['json']);
+	
+	$stmt->execute();
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
