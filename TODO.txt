@@ -8,12 +8,27 @@ LT+PPT to PNG converter?
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT); // <-- filter your data first (see [Data Filtering](#data_filtering)), especially important for INSERT, UPDATE, etc.
 
 
+New model for modular templates, durations on different regions
++ Players are associated with a Template
++ Template table
+	Stores player structure and CSS from a Template table
+	Nonnormalised "subtable" to keep track of regions?
+	Figure out a way to make Regions nice and modular and easy to create
++ Durations are associated with Regions, preferably by integer id? blugh, this could get cumbersome.
+
+Content overhaul
+	Content now gets a Type
+	Image - easy
+	Weather - clunky but works
+	Tabular data - External curl'd down data, needs src, headers, and keys
+
+	
 == PLAYER ==
 	- If only one slide is present, don't keep transitioning it
 	- Change refresh pattern to use a single list of slides and only refresh at the end of the list AND after a refresh interval, to avoid a query storm when no data is available.
-+Redesign overall look to feature secondary area for weather, crawl, etc.
-	-	Weather fetcher
-	-	Look into possible bug occurring when no content.php returns empty.
+
+
+
 
 
 == MANAGEMENT CONSOLE ==
@@ -39,3 +54,8 @@ Ownership of durations
 +Unauthenticated unified JSON query that returns astra schedule and slides at once
 
 Rewrite player to parse json into a slide array in advance, then pass that to the display-and-schedule function
+
+PLAYER
+	- Weather fetcher
+	+Redesign overall look to feature secondary area for weather, crawl, etc.
+	Dynamic regions
