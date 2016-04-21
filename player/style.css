@@ -62,7 +62,7 @@ Separate classes for layout and abs container divs is probably the way to go
 	color : #fff;
 
 	
-	width: calc(71% - 8px);
+	width: calc(72% - 8px);
 	margin-right: 8px;
 
 }
@@ -72,7 +72,7 @@ Separate classes for layout and abs container divs is probably the way to go
 	background-color : #888;
 	color : #fff;
 	
-	width: calc(29% - 8px);
+	width: calc(28% - 8px);
 	margin-left: 8px;
 }
 
@@ -96,13 +96,13 @@ Separate classes for layout and abs container divs is probably the way to go
 
 
 #ticker {
-	width : calc(48% - 16px);
+	width : calc(49% - 16px);
 	margin-left: 8px;
 	margin-right: 8px;
 }
 
 #clock {
-	width: calc(29% - 8px);
+	width: calc(28% - 8px);
 	margin-left: 8px;
 }
 
