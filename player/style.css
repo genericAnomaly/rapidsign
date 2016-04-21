@@ -121,6 +121,7 @@ div.weather-header {
 img.weather-icon {
 	float: left;
 	padding: 7px;
+	height : calc(100% - 21px);
 }
 div.weather-panel p {
 	margin: 7px;
@@ -136,17 +137,18 @@ p.weather-temp {
 
 div.clock-time {
 	text-align : center;
-	font-size : 2em;
+	font-size : calc(5.5vh - 4px);
 	color : #344269;
 	padding : 0px;
+	height: 60%;
 }
 div.clock-date {
 	text-align : center;
 	background-color : #344269;
 	color : #fff;
 	padding : 1px;
-	bottom : 0px;
-	font-size : 1.2em;
+	height : 60%;
+	font-size : calc(3.5vh - 4px);
 }
 
 
