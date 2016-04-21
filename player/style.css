@@ -121,7 +121,7 @@ div.weather-header {
 img.weather-icon {
 	float: left;
 	padding: 7px;
-	height : calc(100% - 21px);
+	height : calc(100% - 1em - 7px);
 }
 div.weather-panel p {
 	margin: 7px;
