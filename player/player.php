@@ -52,7 +52,7 @@
 	var refresh = false;
 	
 	//Global vars for communicating between asynchronous stuff COS IDK IT SEEMS LIKE THERE SHOULD BE A BETTER WAY
-	var cachedContent = false;
+	var cachedContent = {};
 	var cacheRefreshed = false;
 	var regionsActivated = false;
 	
@@ -168,6 +168,7 @@
 			data = {};
 		}
 		
+		//TODO: errorhandler needs to address error severity, like, only do a refresh if errors are received continually
 		cachedContent = data;
 		//console.log('Updated the cache.');
 		//console.log(cachedContent);

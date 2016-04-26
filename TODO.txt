@@ -1,5 +1,12 @@
 TODO list
 
+
+In chunks:
+First, worry about making the sign templates dynamic, either as just a block of page code or as assembled from a list of Regions. That can be done isolated and leave duration assignments hardcoded.
+Then, once that's taken care of, worry about content types and assigning durations to different regions
+Oh and at some point, probably best sooner than later, switch all these includes to be classes.
+
+
 == SERVER ==
 
 +Accept action=update queries to modify existing reservations
@@ -25,12 +32,7 @@ Content overhaul
 	
 == PLAYER ==
 	- If only one slide is present, don't keep transitioning it
-	- Change refresh pattern to use a single list of slides and only refresh at the end of the list AND after a refresh interval, to avoid a query storm when no data is available.
-
-
-
-
-
+	
 == MANAGEMENT CONSOLE ==
 +Modal scheduling widget
 +Modify existing durations
@@ -59,3 +61,4 @@ PLAYER
 	- Weather fetcher
 	+Redesign overall look to feature secondary area for weather, crawl, etc.
 	Dynamic regions
+	- Change refresh pattern to use a single list of slides and only refresh at the end of the list AND after a refresh interval, to avoid a query storm when no data is available.

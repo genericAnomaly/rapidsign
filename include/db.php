@@ -1,10 +1,21 @@
 <?php
 
 function db_connect() {
+	return db_try_connect(5);
+}
+
+function db_try_connect ($retries) {
 	try {
 		@$dbh = new PDO('mysql:host='.MYSQL_HOST.';dbname='.MYSQL_DB, MYSQL_USER, MYSQL_PW);
 	} catch (PDOException $e) {
-		die ('DB Error');
+		if ($retries > 0) {
+			sleep(1);
+			set_time_limit(30);
+			return db_try_connect($retries-1);
+		} else {
+			header('Refresh:5');
+			die('A DB Error has occurred; retrying in 5 seconds.');
+		}
 	}
 	return $dbh;
 }
