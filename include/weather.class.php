@@ -1,8 +1,8 @@
 <?php
 
 define('WEATHER_FORECAST_URL',		'http://forecast.weather.gov/MapClick.php?');
-define('WEATHER_USERAGENT_STRING',	'CambridgeCollegeRapidSignage/0.2.0 (Web Application, https://github.com/genericAnomaly/rapidsign)');
-define('WEATHER_CACHE_MINUTES',		'30');
+define('WEATHER_USERAGENT_STRING',	'CambridgeCollegeRapidSignage/0.2.1 (Web Application, https://github.com/genericAnomaly/rapidsign)');
+define('WEATHER_CACHE_MINUTES',		'60');
 
 //http://forecast.weather.gov/MapClick.php?lat=42.3798&lon=-71.1284&FcstType=json
 
